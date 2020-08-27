@@ -1,6 +1,4 @@
-# dummy-app-multi-versions
-
-## Deploy multiple version dynamically with nginx ingress controller and Helm
+# Deploy multiple version dynamically with nginx ingress controller and Helm
 
 Very simple python Flask application that has 2 deployment environments:
 
