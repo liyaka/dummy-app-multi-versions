@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "releaseNameFormatted" . }}
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: {{ .Values.service.loadBalancerIP }}
+    http:
+      paths:
+      {{- if contains "prod" .Values.environment }}
+      - path: /v{{ .Values.image.tag }}
+      {{- else }}
+      - path: /
+      {{- end }}
+        backend:
+          serviceName: {{ include "releaseNameFormatted" . }}
+          servicePort: {{ .Values.service.port }}

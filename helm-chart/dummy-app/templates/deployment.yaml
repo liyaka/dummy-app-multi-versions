@@ -1,0 +1,28 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ include "releaseNameFormatted" .}}
+  labels:
+    app: {{ .Values.name }}
+    version: {{ .Values.image.tag }}
+    release: {{ $.Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+      version: {{ .Values.image.tag }}
+      release: {{ $.Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+        version: {{ .Values.image.tag }}
+        release: {{ $.Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Values.name }}
+        image: {{ .Values.image.repository}}/{{ .Values.image.imageName }}:{{ .Values.image.tag }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
