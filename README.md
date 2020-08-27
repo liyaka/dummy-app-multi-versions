@@ -8,16 +8,16 @@ Very simple python Flask application that has 2 deployment environments:
 - **prod** - manage multiple versions
 
 ## Set your configuration
-Set values in values-dev.yaml and values-prod-yaml:
+Set values in `helm-chart/dummy-app/values-dev.yaml` and `helm-chart/dummy-app/values-prod.yaml`:
 
-- <dev-registry>/<prod-registry> - your registries urls
-- <dev cluster DNS name>/<dev cluster DNS name> - your clusters DNS names
+- DEV-REGISTRY/PROD-REGISTRY - your registries urls
+- DEV-CLUSTER-DNS-NAME/PROD-CLUSTER-DNS-NAME - your clusters DNS names
 
 ## Build
 Set environment variables:
 
-- BUILD_NUMBER, the default is 1
-- REGISTRY_URL, the default is empty
+- `BUILD_NUMBER`, the default is 1
+- `REGISTRY_URL`, the default is empty
 Run build.sh to build and push docker images
 (Make sure you are logged in to your registry)
 
@@ -41,9 +41,11 @@ helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx --set rbac.crea
 
 ### Deploy to dev
 
+Replace `VERSION_NAME` in `helm-chart/dummy-app/values-dev.yaml` with your full version name (like `1.0.4`)
+Run:
 ```
 cd helm-chart
-helm upgrade --install --cleanup-on-fail  -f dummy-app/values-dev.yaml  dummy-app ./dummy-app
+helm upgrade --install --cleanup-on-fail  -f dummy-app/values-dev.yaml dummy-app ./dummy-app
 ```
 
 Call your service:
@@ -56,14 +58,16 @@ http://mydevserver:5000
 ```
 
 ### Deploy to prod
+Replace `VERSION_NAME` in `helm-chart/dummy-app/values-prod.yaml` with your full version name (like 1.0.4)
+Run:
 ```
 cd helm-chart
-helm upgrade --install --cleanup-on-fail  -f dummy-app/values-dev.yaml  dummy-app-<version> ./dummy-app
+helm upgrade --install --cleanup-on-fail  -f dummy-app/values-dev.yaml dummy-app-<version> ./dummy-app
 ```
 like
 ```
 cd helm-chart
-helm upgrade --install --cleanup-on-fail  -f dummy-app/values-dev.yaml  dummy-app-1.0.4 ./dummy-app
+helm upgrade --install --cleanup-on-fail  -f dummy-app/values-dev.yaml dummy-app-1.0.4 ./dummy-app
 ```
 
 Call your service:
