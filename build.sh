@@ -12,4 +12,4 @@ echo "Build docker image"
 docker build -t ${REGISTRY_URL}dummy-app:${VERSION} .
 
 echo "Push docker image"
-docker push ${REGISTRY_URL}/dummy-app:${VERSION}
+#docker push ${REGISTRY_URL}/dummy-app:${VERSION}

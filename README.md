@@ -11,6 +11,8 @@ Set values in `helm-chart/dummy-app/values-dev.yaml` and `helm-chart/dummy-app/v
 - DEV-REGISTRY/PROD-REGISTRY - your registries urls
 - DEV-CLUSTER-DNS-NAME/PROD-CLUSTER-DNS-NAME - your clusters DNS names
 
+Define DNS name for your cluster with external IP that will be used for nginx controler
+
 ## Build
 Set environment variables:
 

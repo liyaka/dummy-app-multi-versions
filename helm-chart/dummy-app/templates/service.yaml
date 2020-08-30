@@ -11,6 +11,8 @@ spec:
   - protocol: "TCP"
     port: {{ .Values.service.port }}
   type: ClusterIP
+  # type: LoadBalancer
+  # loadBalancerIP: {{ .Values.service.loadBalancerIP }}
   selector:
     app: {{ .Values.name }}
     version: {{ .Values.image.tag }}
